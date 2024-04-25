@@ -98,8 +98,17 @@ ul.bibliography {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='%231C1F2B' width='8' height='8' viewBox='0 0 8 8'%3e%3cpath d='M2.75 0l-1.5 1.5L3.75 4l-2.5 2.5L2.75 8l4-4-4-4z'/%3e%3c/svg%3e");
 }
 
+.floating-toolbar {
+    position: fixed;
+    bottom: 30px;
+    right: 5px;
+    z-index: 99;
+    height: 25px;
+    width: 125px;
+}
+
 /* Page-Up Widget Icon */
-.arrow-up-widget {
+.arrow-up-widget, .style-toggle-widget {
     display: block;
     position: fixed;
     right: 5px;
@@ -123,7 +132,13 @@ ul.bibliography {
 
 }
 
-.arrow-up-widget.hidden {
+.style-toggle-widget {
+    right: 40px;
+}
+
+.arrow-up-widget.hidden,
+.style-toggle-widget.hidden,
+.floating-toolbar {
     opacity: 0;
     transition: opacity 2s ease-out;
     -webkit-transition: opacity 2s ease-out;

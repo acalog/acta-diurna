@@ -12,7 +12,7 @@
             </div>
             <div class='col-lg-4'>
                 <a href="{{ url('/podcasts') }}">
-                    @include('modules.thumbnail', ['imgSource' => 'NightmareHousesLogo', 'caption' => 'Nightmare Houses Podcast'])
+                    @include('modules.thumbnail', ['imgSource' => 'banner', 'caption' => 'Nightmare Houses Podcast'])
                 </a>
             </div>
             <div class='col-lg-4'>

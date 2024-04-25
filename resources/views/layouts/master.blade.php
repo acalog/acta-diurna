@@ -2,9 +2,7 @@
 
 <html class="no-js" lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
-<head>
-    @include('layouts.partials.head')
-</head>
+@include('layouts.partials.head')
 <!-- If it is a guest user, use cookies to set theme. -->
 <body class="{{ is_null(Cookie::get('theme')) ? 'light' : Cookie::get('theme') }}">
     @if(session('alert'))
@@ -28,8 +26,11 @@
 
     <!-- Global Modals -->
     @include('modules.change-theme')
+    <div class="floating-toolbar" id="up">
+        <a class="arrow-up-widget" href="#"><i class="material-icons">arrow_upwards</i></a>
+        <a class="style-toggle-widget" href="#"><i class="material-icons">arrow_upwards</i></a>
+    </div>
 
-    <a class="arrow-up-widget hidden" id="up" href="#"><i class="material-icons">arrow_upwards</i></a>
 
 
     <!-- Content -->
