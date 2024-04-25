@@ -63,6 +63,11 @@
         border: 1px solid $white;
     }
 
+    .episode-container,
+    .episode-item-container#bottom-row {
+        border-color: $white;
+    }
+
 }
 
 @mixin dark($bgColor) {

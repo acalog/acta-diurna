@@ -1,10 +1,15 @@
+.edit-images-container {
+    overflow: scroll;
+    max-height: 50vh;
+}
+
 .edit-image-container {
     border: 1px solid black;
     display: flex;
     max-height: 33vh;
     max-width: 66%;
     margin-bottom: 1em;
-    
+
     flex-direction: column;
 }
 
@@ -40,7 +45,7 @@
 .edit-image-img,
 .edit-image-form {
     display: flex;
-    
+
     justify-content: center;
     figure {
 
@@ -54,7 +59,7 @@
         }
 
     }
-    
+
 
 }
 
