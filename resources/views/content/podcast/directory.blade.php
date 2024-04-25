@@ -3,19 +3,19 @@
 @section('title', 'Nightmare Houses Podcast')
 
 @section('content')
-    @include('modules.figure', ['imgSource' => 'banner'])
     <div class="container-fluid">
-
+        <h1 class="post-title">Welcome to Nightmare Houses Podcast.</h1>
+        @include('modules.figure', ['imgSource' => 'NightmareHousesLogo'])
 
         <div class="row">
             @include('nav.external-links')
         </div>
         <div class="row">
-            @include('modules.audio-player')
+            @include('modules.audio-player')   
         </div>
-
+        
         {{-- @include('modules.external-links') --}}
-
+        
         @foreach($podcasts as $podcast)
             @include('modules.episode', ['podcast' => $podcast])
         @endforeach
