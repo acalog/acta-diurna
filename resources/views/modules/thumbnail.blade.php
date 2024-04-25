@@ -1,8 +1,8 @@
 @if(\Illuminate\Support\Str::contains($imgSource, '.jpg'))
-    <img src="{{ asset('storage/assets/' . $imgSource) }}" class="img-thumbnail" alt="{{ $caption ?? '' }}">
+    <img width="150" height="150" src="{{ asset('storage/assets/' . $imgSource) }}" alt="{{ $caption ?? '' }}">
 
 @else
-    <img src="{{ asset('storage/assets/' . $imgSource . '.jpg') }}" class="img-thumbnail" alt="{{ $caption ?? '' }}">
+    <img width="150" height="150" src="{{ asset('storage/assets/' . $imgSource . '.jpg') }}" alt="{{ $caption ?? '' }}">
 @endif
 
 @if(isset($caption))

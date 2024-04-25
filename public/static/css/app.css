@@ -11064,6 +11064,17 @@ a.text-dark:focus {
   border: 1px solid #FCFCFC;
 }
 
+.dark-green .episode-container,
+.dark-red .episode-container,
+.seasonal .episode-container,
+.dark .episode-container,
+.dark-green .episode-item-container#bottom-row,
+.dark-red .episode-item-container#bottom-row,
+.seasonal .episode-item-container#bottom-row,
+.dark .episode-item-container#bottom-row {
+  border-color: #FCFCFC;
+}
+
 /* Default Dark theme */
 
 /* Dark (Spooky) */
@@ -11369,7 +11380,8 @@ ul.bibliography li {
 }
 
 .arrow-up-widget.hidden,
-.style-toggle-widget.hidden {
+.style-toggle-widget.hidden,
+.floating-toolbar {
   opacity: 0;
   transition: opacity 2s ease-out;
   -webkit-transition: opacity 2s ease-out;
@@ -12677,8 +12689,6 @@ article {
 .episode-inner-container {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;
 }
 
 .episode-item-container#bottom-row {
