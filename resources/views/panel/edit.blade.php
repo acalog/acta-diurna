@@ -76,7 +76,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-12">
                 <section class="edit-images-container">
                     @foreach($podcast->images->sortBy('position') as $image)
                         @if($image->filename != $podcast->thumbnail)

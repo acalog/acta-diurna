@@ -1,6 +1,6 @@
 .edit-images-container {
     overflow: scroll;
-    max-height: 50vh;
+    max-height: 75vh;
 }
 
 .edit-image-container {
@@ -45,17 +45,19 @@
 .edit-image-img,
 .edit-image-form {
     display: flex;
-
     justify-content: center;
-    figure {
 
+    figure {
         border: 1px dotted black;
         border-radius: 0.5em;
+        margin: 0;
 
         img {
             /*max-height: 20vh;*/
-                height: calc(20vh / 4)vh;
-                width: 7.5rem;
+                // height: calc(20vh / 4)vh;
+                // width: 7.5rem;
+            height: 100px;
+            width: 100px
         }
 
     }

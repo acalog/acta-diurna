@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Content;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Panel\HomeController;
 use App\Podcast;
 use Facades\App\Repository\Videos;
 use Log;
@@ -43,7 +44,7 @@ class GuestController extends Controller
         return view("content.{$title}.{$title}");
     }
 
-    public function getPodcast(Request $request, String $title)
+    public function getPodcast(String $title)
     {
         /*
 
@@ -52,7 +53,9 @@ class GuestController extends Controller
         {
             return view("content.auth.login");
         }
-*/
+        */
+
+
         if (is_null(Cookie::get('theme')))
         {
             Cookie::queue(Cookie::make('theme', 'light', 300));
@@ -61,8 +64,13 @@ class GuestController extends Controller
         {
             Cookie::queue('theme', Cookie::get('theme'), 300);
         }
+        $podcast = Podcast::where([
+            ['title', Str::title(str_replace('_', ' ', $title))],
+        ])->first();
 
-        return view("content.podcast.{$title}.{$title}");
+
+        return view('content.podcast.index')->with(['podcast' => $podcast]);
+        // return view("content.podcast.{$title}.{$title}");
 
         // New Version
 

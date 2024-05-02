@@ -50,5 +50,5 @@ Route::redirect('/watts', '/articles/watts', 301)->name('watts');
 // Route::view('/', 'content.podcast.directory');
 
 // Route::redirect('/podcasts', '/');
-
+Route::get('/{title}', 'GuestController@getPodcast')->name('getPodcastBySlug');
 Route::get('/', 'GuestController@getPodcasts')->name('welcome');
