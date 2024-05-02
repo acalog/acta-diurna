@@ -11,8 +11,8 @@ const mix = require('laravel-mix');
  |
  */
 
- mix.js('resources/js/app.js', 'public/static/js')
-     .sass('resources/sass/app.scss', 'public/static/css');
+mix.js('resources/js/app.js', 'public/static/js')
+    .sass('resources/sass/app.scss', 'public/static/css');
 
 mix.scripts([
     'resources/js/dragndrop.js',

@@ -1,9 +1,5 @@
 <figure>
-    @if(\Illuminate\Support\Str::contains($imgSource, '.jpg'))
-        <img src="{{ asset('storage/assets/' .  $imgSource) }}" alt="{{ $caption ?? '' }}" @if(isset($id)) data-img-id="{{ $id }}" @endif>
-    @else
-        <img src="{{ asset('storage/assets/' .  $imgSource . '.jpg') }}" alt="{{ $caption ?? '' }}" @if(isset($id)) data-img-id="{{ $id }}" @endif>
-    @endif
+    <img src="{{ Storage::disk('s3')->url($imgSource . '.jpg') }}" class="img-thumbnail" alt="{{ $caption ?? '' }}">
 
     @if(isset($caption))
         <figcaption>

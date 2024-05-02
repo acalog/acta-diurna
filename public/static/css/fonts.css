@@ -1,0 +1,45 @@
+
+@font-face {
+    font-family: Base;
+    src: url(/fonts/Base4.ttf);
+}
+
+@font-face {
+    font-family: GaramondPremrPro;
+    src: url(/fonts/GaramondPremrPro.otf);
+}
+
+@font-face {
+    font-family: OpenSans;
+    src: url(/fonts/OpenSans-Regular.ttf);
+}
+
+@font-face {
+    font-family: OpenSansLight;
+    src: url(/fonts/OpenSans-Light.ttf);
+}
+
+@font-face {
+    font-family: ParkLane;
+    src: url(/fonts/ParkLane.ttf);
+}
+
+@font-face {
+    font-family: ParkLaneNF;
+    src: url("/fonts/Park Lane NF.ttf?abcbdd924d9ff20f8fd44d7b96ec8dbe");
+}
+
+@font-face {
+    font-family: ParkinsonRoman;
+    src: url(/fonts/Parkinson-Roman.otf?56a7a3242ef91e7c44f0404430b2107a);
+}
+
+@font-face {
+    font-family: Copasetic;
+    src: url("/fonts/Copasetic NF.ttf?fb005dba4bdff88d1ee772fb2a69efc5");
+}
+
+@font-face {
+    font-family: Ironick;
+    src: url("/fonts/Ironick NF.ttf?99d0a12f7496ec4575c157288224f24f");
+}

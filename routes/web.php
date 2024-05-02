@@ -13,4 +13,4 @@
 
 
 # Comment Routes
-Route::resource('comments', 'CommentController');
+// Route::resource('comments', 'CommentController');

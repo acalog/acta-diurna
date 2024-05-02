@@ -10,6 +10,12 @@
         </a>
     </div>
 
+    <div class="episode-item">
+        <a href="{{ route('getPodcastBySlug', Str::lower(str_replace(' ', '_', $podcast->title))) }}">
+            <h2>S{{ $podcast->season }} E{{ $podcast->episode }} - {{ $podcast->title }} </h2>
+        </a>
+    </div>
+
     <div class="episode-item-container">
         <div class="episode-inner-container">
             <div class="episode-item-image">
