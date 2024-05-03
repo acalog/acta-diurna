@@ -7,8 +7,12 @@ use App\Podcast;
 use App\Image;
 use App\Reference;
 use App\Services\Formatter;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
@@ -19,7 +23,7 @@ class PodcastController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Application|Factory|View
      */
     public function index()
     {
@@ -40,7 +44,7 @@ class PodcastController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function create()
     {
@@ -76,9 +80,8 @@ class PodcastController extends Controller
 
         $filename = Str::snake($request->input('title') . '_title');
 
-
-        $path = $request->file('uploadFile')->storeAs('public/assets', Str::snake($request->input('title') . '_title' . '.jpg'));
-
+        // $path = $request->file('uploadFile')->storeAs('public/assets', Str::snake($request->input('title') . '_title' . '.jpg'));
+        Storage::disk('s3')->putFileAs('', $request->file('uploadFile'), $filename);
 
         $pending = $request->boolean('draft');
 
@@ -110,7 +113,7 @@ class PodcastController extends Controller
      * Display the specified resource.
      *
      * @param Podcast $podcast
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function show(Podcast $podcast)
     {
@@ -121,7 +124,7 @@ class PodcastController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param Podcast $podcast
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function edit(Podcast $podcast)
     {
@@ -145,14 +148,19 @@ class PodcastController extends Controller
             $file = $request->file('uploadThumbnailFile');
 
             // $path = $file->storeAs('public/assets', $file->getClientOriginalName());
+            // dd($file, $podcast->thumbnail);
 
             // Delete Old Thumbnail
-            $old_thumbnail = Image::where('filename', $podcast->thumbnail)->first();
+            // $old_thumbnail = Image::where('filename', $podcast->thumbnail)->first();
 
-            Image::destroy($old_thumbnail->id);
+            // Image::destroy($old_thumbnail->id);
 
-            $path = $file->storeAs('public/assets', Str::snake($podcast->title . '_title' . '.jpg'));
-            // Save as Image
+            // $path = $file->storeAs('public/assets', Str::snake($podcast->title . '_title' . '.jpg'));
+            Storage::disk('s3')->delete(Str::snake($podcast->title . '_title'));
+            Storage::disk('s3')->putFileAs('', $file, Str::snake($podcast->title . '_title'));
+
+            // Save Image metadata
+            /*
             $image = Image::create([
                 'filename' => $podcast->thumbnail
             ]);
@@ -160,6 +168,7 @@ class PodcastController extends Controller
             // Associate with podcast
             $image->podcast()->associate($podcast);
             $image->save();
+            */
         }
 
         if ($request->has('description'))
@@ -198,11 +207,11 @@ class PodcastController extends Controller
      * Update the resource's associated image
      *
      * @param \App\Image  $image
-     * @return \Illuminate\Http\Response
+     * @return Response|void
      */
     public function updateImage(Request $request, Image $image)
     {
-
+        return;
     }
 
 

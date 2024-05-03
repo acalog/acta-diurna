@@ -56,15 +56,15 @@ class RouteServiceProvider extends ServiceProvider
     {
         $this->mapApiRoutes();
 
-        Route::group($this->routeGroup['public'], function($router) {
-            require base_path('routes/public.php');
-        });
+        $this->mapPanelRoutes();
 
         Route::group($this->routeGroup['auth'], function($router) {
             require base_path('routes/auth.php');
         });
 
-        $this->mapPanelRoutes();
+        Route::group($this->routeGroup['public'], function($router) {
+            require base_path('routes/public.php');
+        });
 
         $this->mapWebRoutes();
 

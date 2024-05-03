@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use DB;
+use Illuminate\Database\Query\Builder;
 
 class Post extends Model
 {
@@ -24,7 +25,7 @@ class Post extends Model
      * Returns user's most recent post.
      *
      * @param $user_id
-     * @return Model|\Illuminate\Database\Query\Builder|object|null
+     * @return Model|Builder|object|null
      */
     public static function mostRecent($user_id)
     {

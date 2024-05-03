@@ -2,13 +2,7 @@
 
 /* Light theme - default */
 .light {
-    background-image: url('./storage/assets/westfieldmapview.jpg');
-    background-position: 50% 20%;
-    color: $black;
-    animation-name: slide;
-    animation-duration: 400s;
-    animation-iteration-count: infinite;
-    animation-delay: 1s;
+
 
     .container, .container-fluid {
         background-color: $body-bg;

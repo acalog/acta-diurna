@@ -97,7 +97,7 @@ class ImageController extends Controller
                 }
 
                 $positions = $podcast->images->pluck('position');
-                
+
                 $max = $positions->max();
 
                 $position = $max ? $max + 1 : 1;
@@ -134,21 +134,51 @@ class ImageController extends Controller
 
         }
         else {
+            if (is_array($request->file('uploadFile')) && count($request->file('uploadFile')) >= 1) {
+                foreach ($request->file('uploadFile') as $file) {
+                    $filename = Str::random(24);
+                    Storage::disk('s3')->putFileAs('', $file, $filename . '.jpg');
+                    $positions = $podcast->images->pluck('position');
+
+                    $max = $positions->max();
+
+                    $position = $max ? $max + 1 : 1;
+
+                    $image = Image::create([
+                        'filename' => $filename,
+                        'position' => $position
+                    ]);
+
+                    /*
+                    $filename = Str::snake($request->input('title') . '_title');
+                    $path = $request->file('uploadFile')->storeAs('public/assets', Str::snake($request->input('title') . '_title' . '.jpg'));
+                    $image = Image::create([
+                        'filename' => $filename
+                    ]);
+                    */
+
+                    # Associate the new image with the podcast.
+                    $image->podcast()->associate($podcast);
+                    $image->save();
+                }
+            }
+            /*
+            dd($request->file('uploadFile'));
             // Save as Image
+            //         Storage::disk('s3')->putFileAs('', $request->file('uploadFile'), $filename);
             if ($request->input('filename') != null) {
                 $path = $request->file('uploadFile')[0]->storeAs('public/assets', $request->input('filename') . '.jpg');
-
+                $s3r = Storage::disk('s3')->put($request->input('filename') . '.jpg', $request->file('uploadFile')[0]);
                 $filename = $request->input('filename');
             } else {
                 $filename = Str::random(24);
+                $s3r = Storage::disk('s3')->put($filename . '.jpg', $request->file('uploadFile')[0]);
                 $path = $request->file('uploadFile')[0]->storeAs('public/assets', $filename . '.jpg');
             }
-
-
-
+            Storage::disk('s3')->putFileAs('', $request->file('uploadFile')[0], $filename . '.jpg');
 
             $positions = $podcast->images->pluck('position');
-                
+
             $max = $positions->max();
 
             $position = $max ? $max + 1 : 1;
@@ -158,16 +188,17 @@ class ImageController extends Controller
                 'position' => $position
             ]);
 
-            /*
+
             $filename = Str::snake($request->input('title') . '_title');
             $path = $request->file('uploadFile')->storeAs('public/assets', Str::snake($request->input('title') . '_title' . '.jpg'));
             $image = Image::create([
                 'filename' => $filename
             ]);
-            */
+
             # Associate the new image with the podcast.
             $image->podcast()->associate($podcast);
             $image->save();
+            */
             return redirect()->route('podcasts.edit', $podcast->id);
         }
 
@@ -228,13 +259,13 @@ class ImageController extends Controller
     }
 
     public function setOrder(Request $request) {
-        
+
         $one = $request->header('X-Img-One');
         $two = $request->header('X-Img-Two');
-        
+
         $image1 = Image::find($one);
         $image2 = Image::find($two);
-        
+
         $temp = $image1->position;
         $image1->position = $image2->position;
         $image2->position = $temp;

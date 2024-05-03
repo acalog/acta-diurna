@@ -1,0 +1,9 @@
+.light {
+    background-image: url('/images/westfieldmapview.jpg');
+    background-position: 50% 20%;
+    color: #000000FF;
+    animation-name: slide;
+    animation-duration: 400s;
+    animation-iteration-count: infinite;
+    animation-delay: 1s;
+}
