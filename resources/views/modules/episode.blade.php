@@ -4,7 +4,7 @@
             <a href="{{ route('podcasts.edit', $podcast->id) }}" class="admin-item">Edit Podcast</a>
         </div>
     @endisAdmin
-    
+
     <div class="episode-item">
         <a href="{{ route('getPodcastBySlug', Str::lower(str_replace(' ', '_', $podcast->title))) }}">
             <h2>S{{ $podcast->season }} E{{ $podcast->episode }} - {{ $podcast->title }} </h2>
