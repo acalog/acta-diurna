@@ -148,7 +148,7 @@ class PodcastController extends Controller
             $file = $request->file('uploadThumbnailFile');
 
             // $path = $file->storeAs('public/assets', $file->getClientOriginalName());
-            // dd($file, $podcast->thumbnail);
+            //dd($file);
 
             // Delete Old Thumbnail
             // $old_thumbnail = Image::where('filename', $podcast->thumbnail)->first();
@@ -156,8 +156,12 @@ class PodcastController extends Controller
             // Image::destroy($old_thumbnail->id);
 
             // $path = $file->storeAs('public/assets', Str::snake($podcast->title . '_title' . '.jpg'));
-            Storage::disk('s3')->delete(Str::snake($podcast->title . '_title'));
-            Storage::disk('s3')->putFileAs('', $file, Str::snake($podcast->title . '_title'));
+            $filePath = Str::snake($podcast->title . '_title') . '.jpg';
+            // Storage::disk('s3')->delete($filePath);
+            if (Storage::disk('s3')->delete($filePath)) {
+                Storage::disk('s3')->putFileAs('', $file, $filePath);
+            }
+
 
             // Save Image metadata
             /*

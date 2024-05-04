@@ -10,7 +10,7 @@ class Podcast extends Model
 
     protected $with = ['images', 'references'];
 
-    protected $dates = ['published'];
+    protected $casts = ['published' => 'date'];
 
     public function images()
     {
