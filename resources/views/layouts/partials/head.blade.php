@@ -7,6 +7,20 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    @if (Cookie::get('theme') == 'light')
+        <style>
+            .light {
+                background-image: url({{ Storage::disk('s3')->url('assets/westfieldmapview.jpg') }});
+                background-position: 50% 20%;
+                color: #000000FF;
+                animation-name: slide;
+                animation-duration: 400s;
+                animation-iteration-count: infinite;
+                animation-delay: 1s;
+            }
+        </style>
+    @endif
+
 
     <!-- Title -->
     <title>@yield('title', config('app.name'))</title>
@@ -34,6 +48,5 @@
     <!-- Styles -->
     <link href="{{ asset('/static/css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('/static/css/fonts.css') }}" rel="stylesheet">
-    <link href="{{ asset('/static/css/themes.css') }}" rel="stylesheet">
 
 </head>

@@ -60,31 +60,17 @@ class PodcastController extends Controller
     public function store(Request $request)
     {
 
-        $title = $request->input('title');
-
-
+        $title       = $request->input('title');
         $description = $request->input('description');
+        $published   = $request->input('published');
+        $season      = $request->input('season');
+        $episode     = $request->input('episode');
+        $rss         = $request->input('rss', 'Pending');
+        $thumbnail   = $request->file('uploadFile');
+        $pending     = $request->boolean('draft');
+        $filename    = Str::snake($request->input('title') . '_title');
 
-
-        $published = $request->input('published');
-
-
-        $season = $request->input('season');
-
-
-        $episode = $request->input('episode');
-
-
-        $rss = $request->input('rss', 'Pending');
-
-
-        $filename = Str::snake($request->input('title') . '_title');
-
-        // $path = $request->file('uploadFile')->storeAs('public/assets', Str::snake($request->input('title') . '_title' . '.jpg'));
-        Storage::disk('s3')->putFileAs('', $request->file('uploadFile'), $filename);
-
-        $pending = $request->boolean('draft');
-
+        Storage::disk('s3')->putFileAs('', $thumbnail, $filename . '.jpg');
 
         $podcast = Podcast::create([
             'title' => $title,
@@ -102,18 +88,15 @@ class PodcastController extends Controller
 
         $image->podcast()->associate($podcast);
         $image->save();
-        return redirect()->route('podcasts.edit', $podcast->id);
-        // return redirect()->route('panel')->with(['alert' => 'New Episode Added']);
 
-        // return redirect(route('panel'))->with(['alert' => 'New Episode Added']);
-
+        return redirect()->route('podcasts.edit', $podcast->id)->with(['alert' => 'New Episode Added.']);
     }
 
     /**
      * Display the specified resource.
      *
      * @param Podcast $podcast
-     * @return Response
+     * @return Application|Factory|\Illuminate\Foundation\Application|View
      */
     public function show(Podcast $podcast)
     {
@@ -124,7 +107,7 @@ class PodcastController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param Podcast $podcast
-     * @return Response
+     * @return Application|Factory|\Illuminate\Foundation\Application|View
      */
     public function edit(Podcast $podcast)
     {
@@ -148,7 +131,7 @@ class PodcastController extends Controller
             $file = $request->file('uploadThumbnailFile');
 
             // $path = $file->storeAs('public/assets', $file->getClientOriginalName());
-            // dd($file, $podcast->thumbnail);
+            //dd($file);
 
             // Delete Old Thumbnail
             // $old_thumbnail = Image::where('filename', $podcast->thumbnail)->first();
@@ -156,8 +139,12 @@ class PodcastController extends Controller
             // Image::destroy($old_thumbnail->id);
 
             // $path = $file->storeAs('public/assets', Str::snake($podcast->title . '_title' . '.jpg'));
-            Storage::disk('s3')->delete(Str::snake($podcast->title . '_title'));
-            Storage::disk('s3')->putFileAs('', $file, Str::snake($podcast->title . '_title'));
+            $filePath = Str::snake($podcast->title . '_title') . '.jpg';
+            // Storage::disk('s3')->delete($filePath);
+            if (Storage::disk('s3')->delete($filePath))
+            {
+                Storage::disk('s3')->putFileAs('', $file, $filePath);
+            }
 
             // Save Image metadata
             /*
@@ -181,9 +168,6 @@ class PodcastController extends Controller
 
         // associate with podcast
         return redirect()->route('podcasts.edit', $podcast->id);
-        // return redirect(route('podcasts.edit', $podcast->id));
-
-
     }
 
     /**
