@@ -184,7 +184,6 @@ class PodcastController extends Controller
         Image::destroy($image_ids);
         Podcast::destroy($podcast->id);
         return redirect()->route('panel');
-        // return redirect(route('podcasts.index'));
     }
 
     /**
