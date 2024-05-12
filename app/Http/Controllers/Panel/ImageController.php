@@ -135,12 +135,14 @@ class ImageController extends Controller
         }
         else {
             if (is_array($request->file('uploadFile')) && count($request->file('uploadFile')) >= 1) {
+                $positions = $podcast->images->pluck('position');
+                $max = $positions->max();
+
                 foreach ($request->file('uploadFile') as $file) {
                     $filename = Str::random(24);
                     Storage::disk('s3')->putFileAs('', $file, $filename . '.jpg');
-                    $positions = $podcast->images->pluck('position');
 
-                    $max = $positions->max();
+
 
                     $position = $max ? $max + 1 : 1;
 
