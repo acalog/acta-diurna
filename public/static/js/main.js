@@ -22,19 +22,21 @@ document.addEventListener('DOMContentLoaded', function () {
 
     addListeners();
     let $form = $('form.box');
+    console.log($form);
     let $updatePodcastForm = $('form#update-podcast');
-    let $updateThumbnailBox = $('.box#update-thumbnail');
-
+    let $boxUpdateThumbnail = $('.box#update-thumbnail');
+    // console.log($boxUpdateThumbnail);
     // File input element
     let $input = $form.find('input[type="file"]');
     // File input (vanilla)
     let $file_input = document.getElementById('thumbnailFile');
     let $input2 = $("form#update-podcast input[type='file']");
+    // console.log($input2);
     let uploadingDisplay = $('#upload-display');
     let uploadsResultsContainer = $('.upload-results-container');
     if (isAdvancedUpload) {
         $form.addClass('has-advanced-upload');
-        $updateThumbnailBox.addClass('has-advanced-upload');
+        $boxUpdateThumbnail.addClass('has-advanced-upload');
         console.log('Drag n\' drop enabled.');
     }
 
@@ -51,13 +53,21 @@ document.addEventListener('DOMContentLoaded', function () {
         .on('dragleave dragend drop', function () {
                 $form.removeClass('is-dragover');
         })
-        .on('drop', function (e) { 
+        .on('drop', function (e) {
             // When drag n drop is supported.
             droppedFiles = e.originalEvent.dataTransfer.files;
             // Trigger submit form.
+            // console.log($form)
+            // $form.trigger('submit');
+
+            // console.log($form.find('input#file.box-file'));
+            $inputBoxFile = $form.find('#file');
+            console.log($inputBoxFile);
+            console.log($('#file'));
+            $inputBoxFile.prop('files', droppedFiles);
             $form.trigger('submit');
         });
-
+        /*
         $form.on('submit', function (e) {
             console.log('Submitting Create New Images Form.');
             console.log('Adding to Uploader');
@@ -77,15 +87,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             } else {}
         });
-        $updateThumbnailBox.on('drag dragstart dragend dragover dragenter dragleave drop', function (e) {
+
+         */
+        $boxUpdateThumbnail.on('drag dragstart dragend dragover dragenter dragleave drop', function (e) {
             e.preventDefault();
             e.stopPropagation();
         })
             .on('dragover dragenter', function () {
-                $updateThumbnailBox.addClass('is-dragover');
+                $boxUpdateThumbnail.addClass('is-dragover');
             })
             .on('dragleave dragend drop', function () {
-                $updateThumbnailBox.removeClass('is-dragover');
+                $boxUpdateThumbnail.removeClass('is-dragover');
             })
             .on('drop', function (e) { // When drag n drop is supported.
                 droppedFiles = e.originalEvent.dataTransfer.files;
